@@ -1,0 +1,17 @@
+{
+  "name": "WikiPreview",
+  "version": "1",
+  "manifest_version": 2,
+  "description": "A Chrome extension that previews Wikipedia articles in a tooltip when hovering a Wiki link.",
+ 
+  "icons": {
+    "48": "icons/wiki.png"
+  },
+
+ "content_scripts": [
+   {
+     "matches": ["*://en.wikipedia.org/*"],
+     "js": ["jquery.js", "content.js"]
+   }
+ ]
+}
