@@ -1,32 +1,37 @@
-chrome.runtime.sendMessage({}, function(response) {
-	var ready = setInterval(function() {
-	if (document.readyState === "complete") {
-		clearInterval(ready);
+$(function() {
+	var prefix = 'https://en.wikipedia.org';
+	var element = ('#bodyContent a');
 
-		var timeout;
-		$element = $('#bodyContent a'); // consider only the links from #bodyContent
+	$(element).hoverIntent({
+		over: getPreview});
 
-		$element.on('mouseenter', function(event){
-			var currentElement = $(this);
+	function getPreview() {
+		var that = this;
+		var link = $(this).attr('href');
+		var fullLink = prefix + link;
+		$(this).removeAttr('title');
 
-			timeout = setTimeout(function(){
-					display(currentElement, event);
-			}, 1000);
-
+		findContent(fullLink).then(function (content) {
+			$(that).attr('title', content.substr(0, 250));
 		})
-
-		$element.on('mouseleave', function(){
-			clearTimeout(timeout);
-		});
-
-		function display(element, event)
-		{  
-			var url = element.attr('href'); // get the Wikipedia link
-			$.get(url, function(data) {     // grabbing the first <p> from the link
-			    var preview = $(data).find('#bodyContent').find('p:first').text();
-			    element.attr('title', preview);
-			});
-		}
 	}
-	}, 10);
+
+	function findContent(fullLink) {
+		return new Promise(function (fulfill, reject) {
+			try {
+				$.get(fullLink, function(data) {
+					console.log("proimse function");
+					fulfill($(data).find('#bodyContent').find('p:first').text());
+				}).fail(function (e) {
+					console.log(e);
+					reject(e);
+				});
+			} catch (err) {
+				console.log(err);
+			}
+		}).catch(function (err) {
+			console.log(err);
+		});
+	}
+
 });
