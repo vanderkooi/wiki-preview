@@ -1,4 +1,4 @@
-// testing message for git functionality on a new machine
+
 
 $(function() {
 	var prefix = 'https://en.wikipedia.org';
@@ -35,7 +35,5 @@ $(function() {
 			console.log(err);
 		});
 	}
-
-	// just making some slight edits to test my git branching abilities
 
 });
