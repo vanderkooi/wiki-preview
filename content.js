@@ -36,4 +36,6 @@ $(function() {
 		});
 	}
 
+	// just making some slight edits to test my git branching abilities
+
 });
