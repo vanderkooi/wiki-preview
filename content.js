@@ -1,3 +1,5 @@
+// testing message for git functionality on a new machine
+
 $(function() {
 	var prefix = 'https://en.wikipedia.org';
 	var element = ('#bodyContent a');
